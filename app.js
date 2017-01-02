@@ -3,6 +3,7 @@
 const express = require('express');
 const app = express();
 const data_store = require('./data_store')
+const bodyParser = require('body-parser')
 
 const port = 8000;
 
@@ -37,6 +38,12 @@ app.get('/api/books/:id', function(req,res) {
       let number = Number(id)
       res.send(data.store.get_books_by_id(number))
     }
-  }); //This close app.get
+  }); //This closes app.get
 
-  
+
+  // POST A JSON REQUEST OF NEW BOOK
+  app.POST('/api/books', function(req, res) {
+    //get body of request and send it to add_book
+    //route should send a json response with the newly created book
+    res.send(data_store.add_book(req.body))
+  });  // This closes app.POST
